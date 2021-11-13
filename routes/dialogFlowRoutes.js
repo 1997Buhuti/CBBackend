@@ -13,11 +13,23 @@ module.exports = app => {
     });
 
     app.post('/api/df_text_query', async (req, res) => {
-        let responses= await chatbot.textQuery(req.body.text, res.parameters.text);
+            let sessionPath=SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+            const request = {
+                session: sessionPath,
+                queryInput: {
+                    text: {
+                        text:req.body.text,
+                        languageCode: config.dialogflowSessionLanguageCode
+                    },
+                }
+            };
+
+            let responses = await SessionClient.detectIntent(request);
+            res.send(responses[0].queryResult);
     });
 
-    app.post('/api/df_event_query', (req, res) => {
-        res.send("Hello World");
+    app.post('/api/df_event_query', async (req, res) => {
+        let responses= await chatbot.eventQuery(req.body.event, res.parameters );
     });
 
 

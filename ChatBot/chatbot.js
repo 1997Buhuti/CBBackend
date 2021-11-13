@@ -1,20 +1,25 @@
 'use strict';
 const dialogflow = require('@google-cloud/dialogflow');
 const config = require('../Config/keys');
+const structjson = require('structjson');
 const SessionClient = new dialogflow.SessionsClient({ keyFilename: "C:\\Users\\dpman\\Downloads\\q-a-phem-973539eb86f5.json" });
 
+const projectId= config.googleProjectId;
+const credentials={
+    client_email:config.googleClientEmail,
+    privateKey:config.googlePrivateKey
+}
+//const SessionClient = new dialogflow.SessionsClient({projectId:projectId, credentials:credentials});
 module.exports ={
-    textQuery: async function(text, parameters){
+    textQuery: async function(text, parameters={}){
         let self = module.exports;
         let sessionPath=SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
         const request = {
             session: sessionPath,
             queryInput: {
                 text: {
-                    // The query to send to the dialogflow agent
-                    text: text,
-                    // The language used by the client (en-US)
-                    languageCode: config.dialogflowSessionLanguageCode,
+                    text:text,
+                    languageCode: config.dialogflowSessionLanguageCode
                 },
             },
             queryParams: {
@@ -22,6 +27,26 @@ module.exports ={
                     data:parameters
                 }
             },
+        };
+
+        let responses = await SessionClient.detectIntent(request);
+        responses = await self.handleAction(responses);
+        return responses
+    },
+
+    eventQuery: async function(event, parameters={}){
+        let self = module.exports;
+        let sessionPath=SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                event: {
+                    name:event,
+                    parameters:structjson.jsonToStructProto(parameters),
+                    languageCode: config.dialogflowSessionLanguageCode
+                },
+            },
+
         };
 
         let responses = await SessionClient.detectIntent(request);
