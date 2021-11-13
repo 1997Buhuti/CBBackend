@@ -2,23 +2,29 @@
 const dialogflow = require('@google-cloud/dialogflow');
 const config = require('../Config/keys');
 const structjson = require('structjson');
-const SessionClient = new dialogflow.SessionsClient({ keyFilename: "C:\\Users\\dpman\\Downloads\\q-a-phem-973539eb86f5.json" });
 
-module.exports ={
-    textQuery: async function(text, parameters={}){
+const projectID = config.googleProjectId;
+const credentials = {
+    client_email: config.googleClientEmail,
+    private_key: config.googlePrivateKey
+}
+const SessionClient = new dialogflow.SessionsClient({projectID, credentials});
+
+module.exports = {
+    textQuery: async function (text, parameters = {}) {
         let self = module.exports;
-        let sessionPath=SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
         const request = {
             session: sessionPath,
             queryInput: {
                 text: {
-                    text:text,
+                    text: text,
                     languageCode: config.dialogflowSessionLanguageCode
                 },
             },
             queryParams: {
-                payload:{
-                    data:parameters
+                payload: {
+                    data: parameters
                 }
             },
         };
@@ -27,16 +33,16 @@ module.exports ={
         responses = await self.handleAction(responses);
         return responses
     },
-    eventQuery: async function(event, parameters={}){
+    eventQuery: async function (event, parameters = {}) {
         let self = module.exports;
-        let sessionPath=SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
         //let eventName='WELCOME';
         const request = {
             session: sessionPath,
             queryInput: {
                 event: {
-                    name:event,
-                    parameters:structjson.jsonToStructProto(parameters),
+                    name: event,
+                    parameters: structjson.jsonToStructProto(parameters),
                     languageCode: config.dialogflowSessionLanguageCode
                 },
             },
