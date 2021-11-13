@@ -27,6 +27,25 @@ module.exports ={
         responses = await self.handleAction(responses);
         return responses
     },
+    eventQuery: async function(event, parameters={}){
+        let self = module.exports;
+        let sessionPath=SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        //let eventName='WELCOME';
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                event: {
+                    name:event,
+                    parameters:structjson.jsonToStructProto(parameters),
+                    languageCode: config.dialogflowSessionLanguageCode
+                },
+            },
+        };
+
+        let responses = await SessionClient.detectIntent(request);
+        responses = await self.handleAction(responses);
+        return responses
+    },
     handleAction: function (responses) {
         return responses;
     }
