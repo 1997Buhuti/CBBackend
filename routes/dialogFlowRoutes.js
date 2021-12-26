@@ -10,6 +10,7 @@ module.exports = app => {
 
     app.get('/', (req, res) => {
         res.send("Hello World");
+        res.send("Testing");
     });
 
     app.post('/api/df_text_query', async (req, res) => {
