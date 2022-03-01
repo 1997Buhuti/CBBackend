@@ -14,8 +14,10 @@ module.exports = app => {
     });
 
     app.post('/api/df_text_query', async (req, res) => {
+            console.log(req)
             let responses = await chatbot.textQuery(req.body.text, req.body.parameters)
             res.send(responses[0].queryResult);
+            console.log(responses)
     });
 
     app.post('/api/df_event_query', cors(), async (req, res) => {
