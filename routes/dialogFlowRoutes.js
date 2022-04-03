@@ -2,6 +2,7 @@ const dialogflow = require('@google-cloud/dialogflow');
 //const config = require('../Config/keys');
 const chatbot = require ('../ChatBot/chatbot');
 const cors = require('cors')
+const controller = require("../cotrollers/controller");
 //const sessionClient = require("dialogflow");
 //const SessionClient = new dialogflow.SessionsClient({ keyFilename: "C:\\Users\\dpman\\Downloads\\q-a-phem-973539eb86f5.json" });
 //const SessionPath = SessionClient.sessionPath(config.googleProjectId, config.dialogflowSessionId);
@@ -25,5 +26,8 @@ module.exports = app => {
         res.send(responses[0].queryResult);
     });
 
+    app.post("/api/upload", controller.upload);
+    app.get("/api/files", controller.getListFiles);
+    app.get("/api/files/:name", controller.download);
 
 }

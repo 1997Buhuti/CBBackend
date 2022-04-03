@@ -1,8 +1,10 @@
+
 const processFile = require("../middleware/upload");
+const {generateURI} = require("../util/URIGenerator");
 const { format } = require("util");
 const { Storage } = require("@google-cloud/storage");
 // Instantiate a storage client with credentials
-const storage = new Storage({ keyFilename: "" });
+const storage = new Storage({ keyFilename: "google-cloud-key.json.json" });
 const bucket = storage.bucket("chatbot_knowledgebases");
 
 const upload = async (req, res) => {
@@ -24,6 +26,7 @@ const upload = async (req, res) => {
             const publicUrl = format(
                 `https://storage.googleapis.com/${bucket.name}/${blob.name}`
             );
+            const gsutilURI=generateURI(blob.name);
             try {
                 // Make the file public
                 await bucket.file(req.file.originalname).makePublic();
@@ -32,11 +35,13 @@ const upload = async (req, res) => {
                     message:
                         `Uploaded the file successfully: ${req.file.originalname}, but public access is denied!`,
                     url: publicUrl,
+                    gsutilURI:gsutilURI
                 });
             }
             res.status(200).send({
                 message: "Uploaded the file successfully: " + req.file.originalname,
                 url: publicUrl,
+                gsutilURI:gsutilURI
             });
         });
         blobStream.end(req.file.buffer);
