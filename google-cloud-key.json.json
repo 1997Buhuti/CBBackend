@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "titanium-deck-346004",
+  "private_key_id": "44cf5a0ad1a343581cc80b68c8dbf17e1ae54f43",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDTkpNCFmyN9eEe\nyC/FWsFrz8ItBcV76M4L1I0Tfj9sCU2Qa0l8bq8ukLU6BdlDwGGtPLdGdWkx9NUr\ncL7v7Nu2ZbF+eS5qMo2Pj+Tpku6m8gc5iJvp5bC0vxJe3+xQ5+bB5P4YxB/MOfwj\n1K+mSjivWHzIx9qwmI5njCiZU9/TDi4imfNZzuyOj/MbZa2VJAi23xTiAHNyH2GA\nhhqBwtKm8aQ9C4y+GmCrzawQ9i+Sl1He8r0E93XC0eXpkhXRXPN4qnoJNnFjysVY\n9F7EPEVuIwqcKGFtxCu+HJI3DZWfA19YAwVI+w9rXdBGVb27+hKmv+C6WjpWXgQO\n/TYB9BqZAgMBAAECggEABvk4M5fR3ul9cLJsOarswGkWBz4fFN8W6IaqWjvBayYQ\n2YthvhFXYpdoM8gE0eH9zjQXveGplJkTbCXAk1+pG8VVEPw9SoiNSC+33beHOHc2\ng//T1MUqeoCoQjqK+10zas1pjycqvaRlIki0u+xLG0N1RHhq5cJ3giP5ZBliwZ3x\nEQ0ZuiDZ8rvy3Dy0+HhX6M6as4wuLzqQTjGqu4Lu88EyA/N7ORoIXuxT3SJUA+w4\nmC1MiXKwf/zygwOkzg9XUhcmeYDyyVravJzvJaTKXSGDpj6KocXXX8AUbE/ucXfR\n+MIqTrUuoBLdt9OXkq19PzrqQ5isgzAr3YwE4+qd0QKBgQDsj2KTreHPx52go6Wc\n3XAcr2YXBMdADJisgjasqS1VwIZ2hTjYJYUBw4iYCvcfEHs8ehwk35RSC0tGPVbO\nlwQ7euJJfqFc7fxL93xKj/7NzDyFO2T5uBcj0AWmCCp050PftL7rRFIxTGJxbqnt\nEVe2sI71Bwxx7C7GD+Fmp7D7yQKBgQDk9YRI0O/foTpG8zs/lTGLN4rToFoiYthX\nuUuZ2hrcvSi8UI4rljKfyGk/4JVKOSrZ3mJ1CY381r7A+qcsxpKvYLK/APR6Hz8n\nLpPiLtNaotGOQCKZdk4SJ9b+n+At3qISBRxc37M2eIS8QFMbMXam9BzdAOvosiiZ\nYzhg86jwUQKBgQDcvUd9Copl+pzJ4yqM38zX14vp+tl6mMZ2YuNl5k+ZbxeJzPKo\nLwqYBL+XMNQ8NoLoggF1HvQmQsew+VfhWuXmItq5PeKQ9rmwoXVnlkpr+yKWKEAn\nDXL6RgifT4tentalDuIAYzZXLjHGKz+BKeexX7tmRXeFbqCOzQ7FXcE2kQKBgQDj\ncHieFN+UGIbZoBlFCiGTF/OSUgH3kpUyX2EYTi7NBCMJHkR8S9GyI9VZnPDwMGW+\n00ie1oTzmycWcGfM9N0V1kr5ristfQixFXXWA4n0yTS9yDwWkgzvwB+0BIEfT79T\ngzwvjhBqlcHVd1iW9MXXBzv81kOCfigSZxvEQ4eYYQKBgED1ZV7pJX0uOr9L63CK\nyXmE3TGLHyAeBff2JaZNWBG8zNKFjuN58MATbsiJwTUPZ5Qx3EmcjzzLkXiA6I00\nsKYkyal/ztzjT+4g+IdQRYgh1HsU1nXrOiTuu0NNyxRSz6qK5k5KENCjF+3apGhS\nrHt3cqxXrPHf4VR8kKb0DEsT\n-----END PRIVATE KEY-----\n",
+  "client_email": "chatbot-knowledge-service@titanium-deck-346004.iam.gserviceaccount.com",
+  "client_id": "117963967982401163878",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chatbot-knowledge-service%40titanium-deck-346004.iam.gserviceaccount.com"
+}
