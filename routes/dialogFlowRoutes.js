@@ -26,8 +26,11 @@ module.exports = app => {
         res.send(responses[0].queryResult);
     });
 
+    //API endpoint for uploading files
     app.post("/api/upload", controller.upload);
+    //API endpoint for getting file list
     app.get("/api/files", controller.getListFiles);
+    //API endpoint for uploading file by name
     app.get("/api/files/:name", controller.download);
 
 }
