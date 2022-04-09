@@ -34,6 +34,13 @@ module.exports = app => {
     //API endpoint for uploading file by name
     app.get("/api/files/:name", controller.download);
 
-    app.post("/api/uploadKB",  operation);
+    app.post("/api/uploadKB",  async(req,res)=>{
+        console.log(req);
+        const response= await operation(req);
+        console.log('Document created');
+        console.log(`response...`+response);
+
+        res.send(response);
+    });
 
 }

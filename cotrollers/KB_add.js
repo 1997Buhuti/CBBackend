@@ -10,8 +10,8 @@
 
   const projectID = config.googleProjectId;
   const knowledgeBaseFullName = `projects/q-a-phem/knowledgeBases/MzQyOTc0MDcwNTM4MjEzNzg1Ng`;
-  const documentPath = `gs://chatbot_knowledgebases/test.csv`;
-  const documentName = ` test.csv`;
+  //const documentPath = `gs://chatbot_knowledgebases/test2.csv`;
+  //const documentName = ` test2.csv`;
   const knowledgeTypes = `FAQ`;
   const mimeType = `text/csv`;
 
@@ -23,40 +23,32 @@
     parent: knowledgeBaseFullName,
     document: {
       knowledgeTypes: [knowledgeTypes],
-      displayName: documentName,
-      contentUri: documentPath,
+      displayName: "",
+      contentUri: "",
       source: 'contentUri',
       mimeType: mimeType,
     },
   };
 
-  const operation = async (req, res) => {
-    try{
-      await client.createDocument(request);
-      const response= await operation.promise(()=>{
-        console.log('Document created');
-        console.log(`Content URI...${response.contentUri}`);
-        console.log(`displayName...${response.displayName}`);
-        console.log(`mimeType...${response.mimeType}`);
-        console.log(`name...${response.name}`);
-        console.log(`source...${response.source}`);
-        res.status(200).send({
-          message: "KB created Successfully "
-        });
-      });
-
-      console.log('Document created');
-      console.log(`Content URI...${response.contentUri}`);
-      console.log(`displayName...${response.displayName}`);
-      console.log(`mimeType...${response.mimeType}`);
-      console.log(`name...${response.name}`);
-      console.log(`source...${response.source}`);
-    }
-    catch (err){
-      console.log(err);
-    }
-  };
 
   module.exports = {
-      operation,
+    operation : async (req) => {
+      try{
+        const request = {
+          parent: knowledgeBaseFullName,
+          document: {
+            knowledgeTypes: [knowledgeTypes],
+            displayName: req.body.documentName,
+            contentUri: req.body.documentPath,
+            source: 'contentUri',
+            mimeType: mimeType,
+          },
+        };
+        console.log("request", request);
+        await client.createDocument(request);
+      }
+      catch (err){
+        console.log(err);
+      }
+    }
   };
