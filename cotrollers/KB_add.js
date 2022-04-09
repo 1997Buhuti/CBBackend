@@ -40,6 +40,9 @@
         console.log(`mimeType...${response.mimeType}`);
         console.log(`name...${response.name}`);
         console.log(`source...${response.source}`);
+        res.status(200).send({
+          message: "KB created Successfully "
+        });
       });
 
       console.log('Document created');
