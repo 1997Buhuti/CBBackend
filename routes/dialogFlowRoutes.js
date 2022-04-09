@@ -3,6 +3,7 @@ const dialogflow = require('@google-cloud/dialogflow');
 const chatbot = require ('../ChatBot/chatbot');
 const cors = require('cors')
 const controller = require("../cotrollers/controller");
+const {operation} = require("../cotrollers/KB_add");
 //const sessionClient = require("dialogflow");
 //const SessionClient = new dialogflow.SessionsClient({ keyFilename: "C:\\Users\\dpman\\Downloads\\q-a-phem-973539eb86f5.json" });
 //const SessionPath = SessionClient.sessionPath(config.googleProjectId, config.dialogflowSessionId);
@@ -32,5 +33,7 @@ module.exports = app => {
     app.get("/api/files", controller.getListFiles);
     //API endpoint for uploading file by name
     app.get("/api/files/:name", controller.download);
+
+    app.post("/api/uploadKB",  operation);
 
 }
