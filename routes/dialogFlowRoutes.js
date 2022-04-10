@@ -1,9 +1,11 @@
-const dialogflow = require('@google-cloud/dialogflow');
+
 //const config = require('../Config/keys');
 const chatbot = require ('../ChatBot/chatbot');
 const cors = require('cors')
 const controller = require("../cotrollers/controller");
-const {operation} = require("../cotrollers/KB_add");
+const KB_controller = require("../cotrollers/KB_controller");
+
+
 //const sessionClient = require("dialogflow");
 //const SessionClient = new dialogflow.SessionsClient({ keyFilename: "C:\\Users\\dpman\\Downloads\\q-a-phem-973539eb86f5.json" });
 //const SessionPath = SessionClient.sessionPath(config.googleProjectId, config.dialogflowSessionId);
@@ -33,14 +35,12 @@ module.exports = app => {
     app.get("/api/files", controller.getListFiles);
     //API endpoint for uploading file by name
     app.get("/api/files/:name", controller.download);
-
-    app.post("/api/uploadKB",  async(req,res)=>{
-        console.log(req);
-        const response= await operation(req);
-        console.log('Document created');
-        console.log(`response...`+response);
-
-        res.send(response);
-    });
-
+    //API endpoint for uploading KnowledgeBase file
+    app.post("/api/uploadKB",KB_controller.addDocument);
+    //API endpoint for deleting KnowledgeBase file
+    app.post("/api/deletedKB",KB_controller.deleteDocument);
+    //API endpoint for getting all KnowledgeBase files
+    app.post("/api/getallKB",KB_controller.callListDocuments);
+    //API endpoint for getting single KnowledgeBase file
+    app.post("/api/getKB",KB_controller.callListDocuments);
 }
