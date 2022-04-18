@@ -1,5 +1,5 @@
 'use strict';
-const dialogflow = require('@google-cloud/dialogflow');
+const dialogflow = require('@google-cloud/dialogflow').v2beta1;
 const config = require('../Config/keys');
 const structjson = require('structjson');
 
@@ -9,7 +9,7 @@ const credentials = {
     private_key: config.googlePrivateKey
 }
 const SessionClient = new dialogflow.SessionsClient({projectID, credentials});
-
+const knowledgeBasePaths=["projects/q-a-phem/knowledgeBases/MzQyOTc0MDcwNTM4MjEzNzg1Ng"]
 module.exports = {
     textQuery: async function (text, parameters = {}) {
         let self = module.exports;
@@ -25,7 +25,8 @@ module.exports = {
             queryParams: {
                 payload: {
                     data: parameters
-                }
+                },
+                knowledgeBaseNames: knowledgeBasePaths,
             },
         };
 
