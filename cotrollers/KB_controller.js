@@ -17,13 +17,10 @@
   const client = new dialogflow.DocumentsClient({
     projectId: projectID,
   });
-  const knowledgeDocumentList=[];
+  let knowledgeDocumentList=[];
 
   const addDocument = async (req ,res) => {
     try {
-      console.log("req");
-      console.log(req);
-
       const request = {
         parent: knowledgeBaseFullName,
         document: {
@@ -34,7 +31,6 @@
           mimeType: mimeType,
         },
       };
-      console.log("request", request);
       const [operation] = await client.createDocument(request);
       const [response] = await operation.promise();
       res.status(200).send({
@@ -58,7 +54,6 @@
           const [operation] = await client.deleteDocument(request);
           const [response] = await operation.promise();
           if(response){
-            console.log(response);
             res.status(200).send({
               message: "Deleted the file successfully: " + response.name,
               url: response.contentUri
@@ -89,8 +84,8 @@
       // Run request
       try{
         const iterable = await client.listDocumentsAsync(request);
+        knowledgeDocumentList=[];
         for await (const response of iterable) {
-          console.log(response);
           knowledgeDocumentList.push(response);
         }
         res.status(200).send({
@@ -105,7 +100,6 @@
       }
 
     }
-
 
   module.exports = {
     addDocument,

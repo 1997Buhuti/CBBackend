@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dialogflow": "^1.2.0",
     "express": "^4.17.3",
+    "mongoose": "^6.3.1",
     "multer": "^1.4.4",
     "save": "^2.4.0",
     "structjson": "^1.0.1"

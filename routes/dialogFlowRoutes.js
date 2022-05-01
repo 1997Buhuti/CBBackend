@@ -18,10 +18,8 @@ module.exports = app => {
     });
 
     app.post('/api/df_text_query', async (req, res) => {
-            console.log(req)
             let responses = await chatbot.textQuery(req.body.text, req.body.parameters)
             res.send(responses[0].queryResult);
-            console.log(responses)
     });
 
     app.post('/api/df_event_query', cors(), async (req, res) => {
@@ -40,7 +38,7 @@ module.exports = app => {
     //API endpoint for deleting KnowledgeBase file
     app.post("/api/deletedKB",KB_controller.deleteDocument);
     //API endpoint for getting all KnowledgeBase files
-    app.post("/api/getallKB",KB_controller.callListDocuments);
+    app.get("/api/getallKB",KB_controller.callListDocuments);
     //API endpoint for getting single KnowledgeBase file
-    app.post("/api/getKB",KB_controller.callListDocuments);
+    app.get("/api/getKB",KB_controller.callListDocuments);
 }
