@@ -13,9 +13,9 @@ const knowledgeBasePaths=["projects/q-a-phem/knowledgeBases/MzQyOTc0MDcwNTM4MjEz
 const Registration = require('../Models/UserRegister')
 let invalidMessage="";
 module.exports = {
-    textQuery: async function (text, parameters = {}) {
+    textQuery: async function (text, userId, parameters = {}) {
         let self = module.exports;
-        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId +userId )
         const request = {
             session: sessionPath,
             queryInput: {
@@ -40,9 +40,9 @@ module.exports = {
         responses = await self.handleAction(responses);
         return responses
     },
-    eventQuery: async function (event, parameters = {}) {
+    eventQuery: async function (event, userId, parameters = {}) {
         let self = module.exports;
-        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId + userId)
         //let eventName='WELCOME';
         const request = {
             session: sessionPath,
