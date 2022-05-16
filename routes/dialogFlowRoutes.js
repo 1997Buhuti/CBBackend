@@ -7,20 +7,14 @@ const KB_controller = require("../cotrollers/KB_controller");
 const Registration = require('../Models/UserRegister');
 const adminUser = require('../Models/AdminUser');
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 //const sessionClient = require("dialogflow");
 //const SessionClient = new dialogflow.SessionsClient({ keyFilename: "C:\\Users\\dpman\\Downloads\\q-a-phem-973539eb86f5.json" });
 //const SessionPath = SessionClient.sessionPath(config.googleProjectId, config.dialogflowSessionId);
 //const SessionPath = SessionClient.sessionPath(config.googleProjectId, config.dialogflowSessionId);
 
 module.exports = app => {
-
-    let users =[
-        {
-            email:'dp.manakal82@gmial.com',
-            password:'Mana@2021',
-        }
-    ]
-
+    
     app.get('/', (req, res) => {
         res.send("Hello World");
     });
@@ -60,22 +54,39 @@ module.exports = app => {
     });
 
     app.post('/api/login', async(req,res)=>{
-        let result=users.find(user=> user.email=== req.body.email);
-        if(result){
-            if(result.password === req.body.password){
-                res.status(200).send
-                ({
-                    message:"login successful",
-                    result:true
-                })
-            }else{
-                res.status(200).send
-                ({
-                    message:"password incorrect",
-                    result:false
-                })
-            }
-        }
+        await adminUser.findOne({email:req.body.email}).then((record) =>{
+          let bool=bcrypt.compareSync(req.body.password, record.password)
+              if(bool){
+                  res.status(200).send
+                  ({
+                      message:"login successful",
+                      result:true
+                  })
+              }else{
+                  res.status(500).send({
+                      message:"login Unsuccessful",
+                      result:false
+                  })
+              }
+
+
+        })
+        // let result=users.find(user=> user.email=== req.body.email);
+        // if(result){
+        //     if(result.password === req.body.password){
+        //         res.status(200).send
+        //         ({
+        //             message:"login successful",
+        //             result:true
+        //         })
+        //     }else{
+        //         res.status(200).send
+        //         ({
+        //             message:"password incorrect",
+        //             result:false
+        //         })
+        //     }
+        // }
     })
     app.post("/api/addNewUser", (req,res)=>{
         const newUser = new adminUser({
@@ -84,7 +95,6 @@ module.exports = app => {
             teacherId:req.body.teacherId
         });
         newUser.save().then((result) =>{
-                console.log("it's working baby")
                 res.send(result);
             }
         );
