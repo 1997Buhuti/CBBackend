@@ -6,6 +6,7 @@ const cors = require ('cors');
 app.use(cors());
 const mongoose=require('mongoose');
 const config=require('./Config/keys')
+app.use(express.json());
 mongoose
     .connect(config.mongoURI, {
         useNewUrlParser: true,
