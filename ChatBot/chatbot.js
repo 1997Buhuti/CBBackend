@@ -13,9 +13,9 @@ const knowledgeBasePaths=["projects/q-a-phem/knowledgeBases/MzQyOTc0MDcwNTM4MjEz
 const Registration = require('../Models/UserRegister')
 let invalidMessage="";
 module.exports = {
-    textQuery: async function (text, parameters = {}) {
+    textQuery: async function (text, userId, parameters = {}) {
         let self = module.exports;
-        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId +userId )
         const request = {
             session: sessionPath,
             queryInput: {
@@ -33,16 +33,13 @@ module.exports = {
         };
 
         let responses = await SessionClient.detectIntent(request);
-        console.log(responses);
-        if(responses && responses.fullfillmentText==="Answer"){
-            invalidMessage=responses.queryText.toString();
-        }
+        //console.log(responses);
         responses = await self.handleAction(responses);
         return responses
     },
-    eventQuery: async function (event, parameters = {}) {
+    eventQuery: async function (event, userId, parameters = {}) {
         let self = module.exports;
-        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId)
+        let sessionPath = SessionClient.projectAgentSessionPath(config.googleProjectId, config.dialogflowSessionId + userId)
         //let eventName='WELCOME';
         const request = {
             session: sessionPath,
@@ -60,36 +57,42 @@ module.exports = {
         return responses
     },
     handleAction: function (responses) {
-        console.log("inside handleAction ");
+        // console.log("inside handleAction ");
         let self = module.exports;
         let queryResult = responses[0].queryResult;
 
         switch (queryResult.action) {
             case 'sendMessageToTeacher':
                 if (queryResult.allRequiredParamsPresent) {
-                    console.log(queryResult.parameters.fields);
-                    let client= self.saveUserQueries(queryResult.parameters.fields).then(()=>{
-                        responses.push(client);
-                        return responses;
-                    })
-                    //Object.assign(self.saveUserQueries(queryResult.parameters.fields),responses);
+                    // //console.log(queryResult.parameters.fields);
+                    // let client= self.saveUserQueries(queryResult.parameters.fields).then((res)=>{
+                    //     responses.push(res);
+                    //     console.log("HHHHIIII");
+                    //     console.log(res);
+                        // console.log("***********************************");
+                        // console.log(responses)
 
+                    // })
+                    //Object.assign(self.saveUserQueries(queryResult.parameters.fields),responses);
+                    return responses;
                 }
                 break;
         }
-        console.log("responses");
-        console.log(responses);
+        // console.log("responses");
+        // console.log(responses);
         return responses;
     },
     saveUserQueries: async function(fields){
+        var datetime = new Date();
+        console.log(datetime.toISOString().slice(0,10));
         const registration = new Registration({
             name: fields.name.stringValue,
             email: fields.email.stringValue,
         });
         try{
             let reg = await registration.save();
-            //console.log(reg);
-            console.log(invalidMessage);
+            console.log(reg);
+            // console.log(invalidMessage);
             return reg;
         } catch (err){
             console.log(err);
