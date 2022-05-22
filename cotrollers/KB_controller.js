@@ -35,7 +35,8 @@
       const [response] = await operation.promise();
       res.status(200).send({
         message: "Uploaded the file successfully: " + response.name,
-        url: response.contentUri
+        url: response.contentUri,
+        payload:response
       });
     } catch (err) {
       console.log(err);
