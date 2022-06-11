@@ -14,7 +14,7 @@ const bcrypt = require("bcrypt");
 //const SessionPath = SessionClient.sessionPath(config.googleProjectId, config.dialogflowSessionId);
 
 module.exports = app => {
-    
+
     app.get('/', (req, res) => {
         res.send("Hello World");
     });
