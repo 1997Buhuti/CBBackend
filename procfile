@@ -1,2 +1,1 @@
 web: node server.js
-echo ${GOOGLE_CREDENTIALS} > google-cloud-key.json.json
